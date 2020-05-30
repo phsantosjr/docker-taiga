@@ -90,24 +90,24 @@ services:
     env_file:
       - production.env
 
-  proxy:
-    image: dockertaiga/proxy
-    container_name: taiga-proxy
-    restart: unless-stopped
-    depends_on:
-      - back
-      - front
-      - events
-    networks:
-      - default
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      #- ./cert:/taiga-cert
-      - ./conf/proxy:/taiga-conf
-    env_file:
-      - production.env
+#  proxy:
+#    image: dockertaiga/proxy
+#    container_name: taiga-proxy
+#    restart: unless-stopped
+#    depends_on:
+#      - back
+#      - front
+#      - events
+#    networks:
+#      - default
+#    ports:
+#      - 80:80
+#      - 443:443
+#    volumes:
+#      #- ./cert:/taiga-cert
+#      - ./conf/proxy:/taiga-conf
+#    env_file:
+#      - production.env
 
 networks:
   default:
