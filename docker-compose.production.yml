@@ -69,9 +69,9 @@ services:
     entrypoint: []
     env_file: production.env
     command: ['celery', '-A', 'taiga', 'worker', '-P', 'gevent', '-c', '4', '--loglevel', 'info']
-      depends_on:
-        - redis
-        - rabbitmq
+    depends_on:
+      - redis
+      - rabbitmq
     # Maybe you want to increase the workers, see <celeryworker> in docker-compose.yml
     # command: ['celery', '-A', 'taiga', 'worker', '-P', 'gevent', '-c', '4', '--loglevel', 'info']
 
