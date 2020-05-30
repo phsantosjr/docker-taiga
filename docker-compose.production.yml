@@ -82,7 +82,7 @@ services:
     container_name: taiga-events
     restart: unless-stopped
     depends_on:
-      - rabbit
+      - rabbitmq
     networks:
       - default
     env_file:
