@@ -13,30 +13,24 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - postgres_backup:/backups
-    environment:
-      - POSTGRES_USER=taiga
-      - POSTGRES_DB=taiga
-      - POSTGRES_PASSWORD=123
+    networks:
+      - default
 
   redis:
     image: redis:4.0-alpine
     restart: always
+    networks:
+      - default
 
   rabbitmq:
     restart: always
     env_file: production.env
     image: rabbitmq:3.6-alpine
     hostname: taiga_rabbitmq
-    environment:
-      # https://www.rabbitmq.com/clustering.html#erlang-cookie
-      - RABBITMQ_ERLANG_COOKIE='secret_cookie_here'
-      - RABBITMQ_DEFAULT_USER=taiga
-      - RABBITMQ_DEFAULT_PASS=taiga
-      - RABBITMQ_DEFAULT_VHOST=taiga
-      # http://www.rabbitmq.com/configure.html#config-items
-      # - RABBITMQ_HIPE_COMPILE=1
+    networks:
+      - default
 
-  backend:
+  back:
     build: backend/
     restart: always
     env_file: production.env
@@ -45,8 +39,10 @@ services:
     command: ['gunicorn', '--worker-class', 'gevent', '--workers', '4', '-b', '0.0.0.0:8000', 'taiga.wsgi']
     user: taiga
     entrypoint: ['/scripts/entrypoint.sh']
+    networks:
+      - default
 
-  frontend:
+  front:
     build: backend/
     ports:
       - "80:80"
@@ -55,7 +51,7 @@ services:
       # but 'celeryworker' extends 'backend' and we cannot extend a service
       # if it is using 'depends_on'.
       - postgresql
-      - backend
+      - back
       - events
     volumes:
       - taiga_backend_media:/taiga_backend/media
@@ -64,6 +60,8 @@ services:
     env_file: production.env
     environment:
       - TAIGA_DEBUG=false
+    networks:
+      - default
 
   celeryworker:
     build: backend/
@@ -74,12 +72,40 @@ services:
     depends_on:
       - redis
       - rabbitmq
+    networks:
+      - default
     # Maybe you want to increase the workers, see <celeryworker> in docker-compose.yml
     # command: ['celery', '-A', 'taiga', 'worker', '-P', 'gevent', '-c', '4', '--loglevel', 'info']
 
   events:
-    build: events/
-    restart: always
-    env_file: production.env
+    image: dockertaiga/events
+    container_name: taiga-events
+    restart: unless-stopped
     depends_on:
-      - rabbitmq
+      - rabbit
+    networks:
+      - default
+    env_file:
+      - production.env
+
+  proxy:
+    image: dockertaiga/proxy
+    container_name: taiga-proxy
+    restart: unless-stopped
+    depends_on:
+      - back
+      - front
+      - events
+    networks:
+      - default
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      #- ./cert:/taiga-cert
+      - ./conf/proxy:/taiga-conf
+    env_file:
+      - production.env
+
+networks:
+  default:
