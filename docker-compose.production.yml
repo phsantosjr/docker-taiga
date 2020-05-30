@@ -43,7 +43,7 @@ services:
       - default
 
   front:
-    build: backend/
+    build: frontend/
     depends_on:
       # It would be better to add 'postgres' to 'depends_on' on 'backend' service
       # but 'celeryworker' extends 'backend' and we cannot extend a service
