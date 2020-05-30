@@ -30,7 +30,7 @@ services:
     networks:
       - default
 
-  back:
+  backend:
     build: backend/
     restart: always
     env_file: production.env
@@ -49,7 +49,7 @@ services:
       # but 'celeryworker' extends 'backend' and we cannot extend a service
       # if it is using 'depends_on'.
       - postgresql
-      - back
+      - backend
       - events
     volumes:
       - taiga_backend_media:/taiga_backend/media
@@ -91,7 +91,7 @@ services:
     container_name: taiga-proxy
     restart: unless-stopped
     depends_on:
-      - back
+      - backend
       - front
       - events
     networks:
