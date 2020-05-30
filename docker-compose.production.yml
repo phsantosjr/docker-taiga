@@ -13,8 +13,8 @@ services:
       - production.env
     image: postgres:11-alpine
     volumes:
-      - .data/db:/var/lib/postgresql/data
-      - .data/db_backup:/backups
+      - ./data/db:/var/lib/postgresql/data
+      - ./data/db_backup:/backups
     networks:
       - default
 
@@ -54,8 +54,8 @@ services:
       - back
       - events
     volumes:
-      - taiga_backend_media:/taiga_backend/media
-      - /taiga_backend/static-root
+      - ./taiga_backend_media:/taiga_backend/media
+      - ./taiga_backend/static-root
     restart: always
     env_file: production.env
     environment:
