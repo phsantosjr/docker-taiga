@@ -28,7 +28,6 @@ ADD . /
 
 # FINAL IMAGE
 RUN pip3 install -r requirements.txt
-RUN python manage.py compilemessages
 
 RUN export C_FORCE_ROOT='true'
 
