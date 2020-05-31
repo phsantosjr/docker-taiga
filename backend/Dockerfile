@@ -2,23 +2,6 @@ FROM alpine:3.10
 
 ARG VERSION=5.0.7
 
-#ENV TAIGA_HOST=taiga.lan \
-#    TAIGA_SECRET=secret \
-#    TAIGA_SCHEME=http \
-#    POSTGRES_HOST=db \
-#    POSTGRES_DB=taiga \
-#    POSTGRES_USER=postgres \
-#    POSTGRES_PASSWORD=password \
-#    RABBIT_HOST=rabbit \
-#    RABBIT_PORT=5672 \
-#    RABBIT_USER=taiga \
-#    RABBIT_PASSWORD=password \
-#    RABBIT_VHOST=taiga \
-#    REDIS_HOST=redis \
-#    REDIS_PORT=6379 \
-#    REDIS_DB=0 \
-#    REDIS_PASSWORD=password
-
 WORKDIR /srv/taiga
 
 RUN apk --no-cache add python3 gettext postgresql-dev libxslt-dev libxml2-dev libjpeg-turbo-dev zeromq-dev libffi-dev nginx \
@@ -36,6 +19,7 @@ EXPOSE 80
 
 WORKDIR /srv/taiga/back
 
+CMD "echo ################# starting scripts"
 COPY config.py celery.py /tmp/taiga-conf/
 COPY waitfordb.py /
 COPY start.sh /
