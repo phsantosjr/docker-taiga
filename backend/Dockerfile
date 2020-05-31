@@ -4,9 +4,8 @@ ENV TAIGA_VERSION 5.0.7
 
 WORKDIR /srv/taiga
 
-RUN apt-get update && apt-get install gcc \
-    python-dev \
-    pip install --upgrade pip
+RUN apt-get update && apt-get install gcc python-dev
+RUN pip3 install --upgrade pip
 
 ADD https://github.com/taigaio/taiga-back/archive/${TAIGA_VERSION}.tar.gz ./
     RUN tar -xzf ${TAIGA_VERSION}.tar.gz -C ./ taiga-back-${TAIGA_VERSION} --strip-components=1
