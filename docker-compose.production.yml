@@ -38,7 +38,8 @@ services:
     build: backend/
     container_name: taiga-back
     restart: always
-    env_file: production.env
+    env_file:
+      - production.env
     volumes:
       - taiga_backend:/taiga_backend/
       - taiga_backend_media:/taiga_backend/media
@@ -46,6 +47,7 @@ services:
       - ./data/media:/taiga-media
     environment:
       - DJANGO_DEBUG=False
+    entrypoint: ['/scripts/entrypoint.sh']
     command: ['gunicorn', '--worker-class', 'gevent', '--workers', '4', '-b', '0.0.0.0:8000', 'taiga.wsgi']
     networks:
       - default
