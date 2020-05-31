@@ -33,7 +33,7 @@ services:
   back:
     build:
       context: backend/
-      dockerfile: Dockerfile-backend
+      dockerfile: Dockerfile
     container_name: taiga-back
     restart: always
     env_file:
