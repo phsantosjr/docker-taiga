@@ -37,6 +37,7 @@ services:
     env_file:
       - production.env
     volumes:
+      - ./backend:/backend
       - ./taiga_backend:/taiga_backend/
       - ./taiga_backend_media:/taiga_backend/media
       - ./conf/back:/taiga-conf
