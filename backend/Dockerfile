@@ -25,6 +25,8 @@ RUN echo "django-anymail==0.5" >> requirements.txt
 RUN pip3 install --no-cache-dir --no-index -r requirements.txt
 RUN python manage.py compilemessages
 
+RUN export C_FORCE_ROOT='true'
+
 COPY local.py settings/local.py
 COPY celery_local.py settings/celery_local.py
 COPY scripts/ /scripts/
