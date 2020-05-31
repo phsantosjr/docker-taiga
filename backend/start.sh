@@ -59,8 +59,8 @@ else
     python3 manage.py compilemessages
     python3 manage.py collectstatic --noinput
 
-    echo 'Installing cron jobs...'
-    echo '*/5 * * * * cd /srv/taiga/back && /usr/bin/python3 manage.py send_notifications >> /var/log/cron 2>&1' > /etc/crontabs/root
+#    echo 'Installing cron jobs...'
+#    echo '*/5 * * * * cd /srv/taiga/back && /usr/bin/python3 manage.py send_notifications >> /var/log/cron 2>&1' > /etc/crontabs/root
 fi
 
 #C_FORCE_ROOT=1 celery -A taiga worker --concurrency 4 -l INFO &
