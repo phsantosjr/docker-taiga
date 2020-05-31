@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
   taiga_backend_media: {}
+  taiga_backend: {}
 
 services:
   postgresql:
