@@ -28,7 +28,7 @@ RUN sed -i 's,git+https://github.com/Xof/django-pglocks.git,django-pglocks==1.0.
 # using gevent to run taiga gunicorn (workers)
 # using gevent on celery (workers)
 RUN echo "django-environ==0.4.0" >> requirements.txt
-RUN echo "gevent==20.50.2" >> requirements.txt
+RUN echo "gevent==20.5.2" >> requirements.txt
 RUN echo "django-anymail==0.5" >> requirements.txt
 
 RUN pip3 wheel -r requirements.txt
