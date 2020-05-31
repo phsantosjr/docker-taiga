@@ -1,6 +1,6 @@
 FROM python:3.6-alpine3.6 as BUILDER
 
-ENV TAIGA_VERSION 5.0.07
+ENV TAIGA_VERSION 5.0.7
 
 RUN apk update \
     && apk add --virtual build-dependencies \
@@ -13,6 +13,7 @@ RUN apk update \
     openjpeg-dev zlib-dev libxslt-dev libxml2-dev libffi-dev \
     # Other tools
     git freetype jpeg libwebp tiff libpng lcms2 openjpeg zlib libxslt libxml2 libffi
+
 
 WORKDIR /srv/taiga
 
