@@ -31,7 +31,8 @@ RUN echo "django-environ==0.4.0" >> requirements.txt
 RUN echo "gevent==1.1.2" >> requirements.txt
 RUN echo "django-anymail==0.5" >> requirements.txt
 
-RUN pip3 wheel -r requirements.txt
+#RUN pip3 wheel -r requirements.txt
+RUN pip3 install gevent[events]
 
 EXPOSE 80
 
