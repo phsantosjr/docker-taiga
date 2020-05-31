@@ -1,8 +1,6 @@
 version: '3'
 
 volumes:
-  postgres_data: {}
-  postgres_backup: {}
   taiga_backend_media: {}
 
 services:
