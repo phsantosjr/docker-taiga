@@ -4,12 +4,8 @@ ENV TAIGA_VERSION 5.0.7
 
 WORKDIR /srv/taiga
 
-RUN apt-get update && apt-get install gcc musl-dev libressl-dev \
-    postgresql-dev libpq \
-    freetype-dev jpeg-dev libwebp-dev tiff-dev libpng-dev lcms2-dev \
-    openjpeg-dev zlib-dev libxslt-dev libxml2-dev libffi-dev \
-    # Other tools
-    git freetype jpeg libwebp tiff libpng lcms2 openjpeg zlib libxslt libxml2 libffi \
+RUN apt-get update && apt-get install gcc \
+    postgresql-dev python-dev \
     pip3 install --upgrade pip
 
 ADD https://github.com/taigaio/taiga-back/archive/${TAIGA_VERSION}.tar.gz ./
