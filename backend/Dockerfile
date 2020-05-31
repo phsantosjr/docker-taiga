@@ -10,7 +10,7 @@ RUN apk --no-cache add python3 gettext postgresql-dev libxslt-dev libxml2-dev li
     && git clone --depth=1 -b $VERSION https://github.com/taigaio/taiga-back.git back && cd back \
     && pip3 install --upgrade pip \
     && pip3 install --no-cache-dir -r requirements.txt \
-    && pip3 install --install-option="--prefix=/install" gevent
+    && pip3 install --install-option="--prefix=/install" gevent \
     && rm -rf /root/.cache \
     && apk del .build-dependencies \
     && rm /srv/taiga/back/settings/local.py.example \
