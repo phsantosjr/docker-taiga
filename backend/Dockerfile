@@ -5,7 +5,7 @@ ARG VERSION=5.0.7
 WORKDIR /srv/taiga
 
 RUN apk --no-cache add python3 gettext postgresql-dev libxslt-dev libxml2-dev libjpeg-turbo-dev zeromq-dev libffi-dev nginx \
-    && apk add --no-cache --virtual .build-dependencies git g++ musl-dev linux-headers python3-dev zlib-dev libjpeg-turbo-dev freetype-dev \
+    && apk add --no-cache --virtual .build-dependencies git g++ musl-dev linux-headers python3-dev gcc zlib-dev libjpeg-turbo-dev freetype-dev \
     && mkdir logs \
     && git clone --depth=1 -b $VERSION https://github.com/taigaio/taiga-back.git back && cd back \
     && pip3 install --upgrade pip \
