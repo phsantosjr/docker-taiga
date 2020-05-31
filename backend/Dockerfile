@@ -5,7 +5,6 @@ ARG TAIGA_VERSION=5.0.7
 RUN apt-get update
 RUN apt-get install gcc python-dev git gettext -y
 
-WORKDIR /
 RUN ls
 
 #RUN echo " ## Downloading Taiga for Github"
