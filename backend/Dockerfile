@@ -4,12 +4,9 @@ ENV TAIGA_VERSION 5.0.7
 
 RUN apt-get update && apt-get install \
     # Essentials
-    gcc musl-dev libressl-dev \
+    gcc python-dev \
     # Postgres python client (psycopg2) build dependency
     postgresql-dev \
-    # Pillow / PIL build dependencies
-    freetype-dev jpeg-dev libwebp-dev tiff-dev libpng-dev lcms2-dev \
-    openjpeg-dev zlib-dev libxslt-dev libxml2-dev libffi-dev \
     # Other tools
     git
 
@@ -29,30 +26,11 @@ RUN echo "django-environ==0.4.0" >> requirements.txt
 RUN echo "gevent==1.1.2" >> requirements.txt
 RUN echo "django-anymail==0.5" >> requirements.txt
 
-RUN pip wheel --wheel-dir=./taiga_python_dependencies -r requirements.txt
+RUN pip3 wheel -r requirements.txt
 
 
 # FINAL IMAGE
-FROM python:3.6-alpine3.6
-
-LABEL maintainer="douglasmirandasilva@gmail.com"
-LABEL taiga_version="tag:3.3.7"
-
-WORKDIR /taiga_backend
-
-COPY --from=BUILDER /taiga_backend ./
-
-RUN apt-get update && apt-get install \
-    # Pillow / PIL
-    freetype jpeg libwebp tiff libpng lcms2 openjpeg zlib libxslt libxml2 libffi \
-    # Postgres python client
-    libpq \
-    # Needed for localization stuff: python manage.py compilemessages
-    gettext \
-    # Other tools
-    git
-
-RUN pip install --no-cache-dir --no-index --find-links=taiga_python_dependencies -r requirements.txt \
+RUN pip3 install --no-cache-dir --no-index --find-links=taiga_python_dependencies -r requirements.txt \
     && rm -R ./taiga_python_dependencies \
     && python manage.py compilemessages
 
