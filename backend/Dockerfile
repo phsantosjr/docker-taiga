@@ -2,6 +2,8 @@ FROM python:3.6-alpine3.6 as BUILDER
 
 ENV TAIGA_VERSION 5.0.7
 
+WORKDIR /srv/taiga
+
 RUN apk update \
     && apk add --virtual build-dependencies \
     # Essentials
@@ -12,10 +14,8 @@ RUN apk update \
     freetype-dev jpeg-dev libwebp-dev tiff-dev libpng-dev lcms2-dev \
     openjpeg-dev zlib-dev libxslt-dev libxml2-dev libffi-dev \
     # Other tools
-    git freetype jpeg libwebp tiff libpng lcms2 openjpeg zlib libxslt libxml2 libffi
-
-
-WORKDIR /srv/taiga
+    git freetype jpeg libwebp tiff libpng lcms2 openjpeg zlib libxslt libxml2 libffi \
+    && pip3 install --upgrade pip
 
 ADD https://github.com/taigaio/taiga-back/archive/${TAIGA_VERSION}.tar.gz ./
     RUN tar -xzf ${TAIGA_VERSION}.tar.gz -C ./ taiga-back-${TAIGA_VERSION} --strip-components=1
@@ -31,7 +31,7 @@ RUN echo "django-environ==0.4.0" >> requirements.txt
 RUN echo "gevent==1.1.2" >> requirements.txt
 RUN echo "django-anymail==0.5" >> requirements.txt
 
-RUN pip wheel --wheel-dir=./taiga_python_dependencies -r requirements.txt
+RUN pip3 wheel --wheel-dir=./taiga_python_dependencies -r requirements.txt
 
 EXPOSE 80
 
