@@ -76,11 +76,12 @@ services:
   celeryworker:
     build: backend/
     restart: always
-    entrypoint: []
+    volumes:
+      - ./backend:/backend/
     env_file:
       - production.env
     container_name: taiga-celery-worker
-    command: ['celery', '-A', 'taiga', 'worker', '-P', 'gevent', '-c', '4', '--loglevel', 'info']
+    command: /backend/run_worker.sh
     depends_on:
       - redis
       - rabbitmq
