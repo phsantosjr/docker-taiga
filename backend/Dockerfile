@@ -2,8 +2,7 @@ FROM python:3.6
 
 ENV TAIGA_VERSION 5.0.7
 
-RUN apk update \
-    && apk add --virtual build-dependencies \
+RUN apt-get update && apt-get install --no-cache \
     # Essentials
     gcc musl-dev libressl-dev \
     # Postgres python client (psycopg2) build dependency
