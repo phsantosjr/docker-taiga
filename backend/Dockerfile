@@ -6,7 +6,6 @@ RUN apt-get update && apt-get install \
     # Essentials
     gcc python-dev \
     # Postgres python client (psycopg2) build dependency
-    postgresql-dev \
     # Other tools
     git
 
