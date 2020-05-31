@@ -1,8 +1,8 @@
 #!/bin/sh
 
-cd /srv/taiga/back
-
 echo '....initializing start.sh #####'
+
+cd /srv/taiga/back
 
 INITIAL_SETUP_LOCK=/taiga-conf/.initial_setup.lock
 if [ ! -f $INITIAL_SETUP_LOCK ]; then
