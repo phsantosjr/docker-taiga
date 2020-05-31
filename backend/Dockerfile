@@ -1,37 +1,36 @@
 FROM python:3.6-alpine3.6 as BUILDER
 
-ARG VERSION=5.0.7
-
-WORKDIR /srv/taiga
-
-ENV TAIGA_VERSION 3.3.7
+ENV TAIGA_VERSION 5.0.07
 
 RUN apk update \
     && apk add --virtual build-dependencies \
     # Essentials
     gcc musl-dev libressl-dev \
     # Postgres python client (psycopg2) build dependency
-    postgresql-dev \
+    postgresql-dev libpq \
     # Pillow / PIL build dependencies
     freetype-dev jpeg-dev libwebp-dev tiff-dev libpng-dev lcms2-dev \
     openjpeg-dev zlib-dev libxslt-dev libxml2-dev libffi-dev \
     # Other tools
-    git
+    git freetype jpeg libwebp tiff libpng lcms2 openjpeg zlib libxslt libxml2 libffi
 
-RUN mkdir logs \
-    && git clone --depth=1 -b $VERSION https://github.com/taigaio/taiga-back.git back && cd back \
-    && pip3 install --upgrade pip \
-    && pip3 install --no-cache-dir -r requirements.txt \
-    && rm -rf /root/.cache \
-    && apk del .build-dependencies \
-    && rm /srv/taiga/back/settings/local.py.example \
-    && rm /srv/taiga/back/settings/celery.py \
-    && rm /etc/nginx/conf.d/default.conf
+WORKDIR /srv/taiga
 
+ADD https://github.com/taigaio/taiga-back/archive/${TAIGA_VERSION}.tar.gz ./
+    RUN tar -xzf ${TAIGA_VERSION}.tar.gz -C ./ taiga-back-${TAIGA_VERSION} --strip-components=1
+RUN rm ${TAIGA_VERSION}.tar.gz
+
+# Don't want pip to use git, so I'm replacing with pypi.
 RUN sed -i 's,git+https://github.com/Xof/django-pglocks.git,django-pglocks==1.0.2,g' requirements.txt
 
+# local.py and checkdb.py and celery
+# using gevent to run taiga gunicorn (workers)
+# using gevent on celery (workers)
+RUN echo "django-environ==0.4.0" >> requirements.txt
 RUN echo "gevent==1.1.2" >> requirements.txt
-RUN pip3 wheel --wheel-dir=./taiga_python_dependencies -r requirements.txt
+RUN echo "django-anymail==0.5" >> requirements.txt
+
+RUN pip wheel --wheel-dir=./taiga_python_dependencies -r requirements.txt
 
 EXPOSE 80
 
@@ -44,3 +43,4 @@ COPY start.sh /
 
 VOLUME ["/taiga-conf", "/taiga-media"]
 CMD ["/start.sh"]
+
