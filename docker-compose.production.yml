@@ -48,7 +48,6 @@ services:
       - DJANGO_DEBUG=False
     command: ['gunicorn', '--worker-class', 'gevent', '--workers', '4', '-b', '0.0.0.0:8000', 'taiga.wsgi']
     user: taiga
-    entrypoint: ['/scripts/entrypoint.sh']
     networks:
       - default
 
