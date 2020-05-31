@@ -30,6 +30,4 @@ COPY celery_local.py settings/celery_local.py
 COPY scripts/ /scripts/
 
 RUN mkdir /taiga_backend/media && mkdir /taiga_backend/static-root \
-    && chown -R taiga ./ \
-    && chown -R taiga /scripts/ \
     && chmod +x /scripts/entrypoint.sh
