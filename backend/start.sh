@@ -66,8 +66,8 @@ fi
 C_FORCE_ROOT=1 celery -A taiga worker --concurrency 4 -l INFO &
 CELERY_PID=$!
 
-#gunicorn --workers 4 --timeout 60 -b 127.0.0.1:8000 taiga.wsgi > /dev/stdout 2> /dev/stderr &
-#TAIGA_PID=$!
+gunicorn --workers 4 --timeout 60 -b 127.0.0.1:8000 taiga.wsgi > /dev/stdout 2> /dev/stderr &
+TAIGA_PID=$!
 
 #mkdir /run/nginx
 #nginx -g 'daemon off;' &
@@ -77,4 +77,4 @@ crond >> /var/log/crond 2>&1
 
 trap 'kill -TERM $TAIGA_PID; kill -TERM $CELERY_PID' SIGTERM
 
-wait $CELERY_PID
+wait $TAIGA_PID $CELERY_PID

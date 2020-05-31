@@ -44,7 +44,7 @@ services:
       - ./data/media:/taiga-media
     environment:
       - DJANGO_DEBUG=False
-    command: ['gunicorn', '--worker-class', 'gevent', '--workers', '4', '-b', '0.0.0.0:8000', 'taiga.wsgi']
+#    command: ['gunicorn', '--worker-class', 'gevent', '--workers', '4', '-b', '0.0.0.0:8000', 'taiga.wsgi']
     networks:
       - default
 
