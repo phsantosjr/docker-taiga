@@ -5,8 +5,8 @@ ENV TAIGA_VERSION 5.0.7
 WORKDIR /srv/taiga
 
 RUN apt-get update && apt-get install gcc \
-    postgresql-dev python-dev \
-    pip3 install --upgrade pip
+    python-dev \
+    pip install --upgrade pip
 
 ADD https://github.com/taigaio/taiga-back/archive/${TAIGA_VERSION}.tar.gz ./
     RUN tar -xzf ${TAIGA_VERSION}.tar.gz -C ./ taiga-back-${TAIGA_VERSION} --strip-components=1
