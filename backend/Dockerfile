@@ -36,5 +36,4 @@ COPY local.py settings/local.py
 COPY celery_local.py settings/celery_local.py
 COPY scripts/ /scripts/
 
-RUN mkdir /taiga_backend/media && mkdir /taiga_backend/static-root \
-    && chmod +x /scripts/entrypoint.sh
+RUN chmod +x /scripts/entrypoint.sh
