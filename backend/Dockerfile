@@ -3,7 +3,7 @@ FROM python:3.6
 ENV TAIGA_VERSION 5.0.7
 
 RUN apt-get update
-RUN apt-get install gcc python-dev git -y
+RUN apt-get install gcc python-dev git gettext libpq -y
 
 WORKDIR /taiga_backend
 
@@ -22,8 +22,8 @@ RUN echo "gevent==1.1.2" >> requirements.txt
 RUN echo "django-anymail==0.5" >> requirements.txt
 
 # FINAL IMAGE
-RUN pip3 install --no-cache-dir --no-index -r requirements.txt \
-    && python manage.py compilemessages
+RUN pip3 install --no-cache-dir --no-index -r requirements.txt
+RUN python manage.py compilemessages
 
 COPY local.py settings/local.py
 COPY celery_local.py settings/celery_local.py
