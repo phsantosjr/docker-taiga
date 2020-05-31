@@ -19,9 +19,11 @@ RUN echo " ## Downloading Taiga for Github"
 # local.py and checkdb.py and celery
 # using gevent to run taiga gunicorn (workers)
 # using gevent on celery (workers)
-RUN echo "django-environ==0.4.0" >> requirements.txt
-RUN echo "gevent==1.1.2" >> requirements.txt
-RUN echo "django-anymail==0.5" >> requirements.txt
+#RUN echo "django-environ==0.4.0" >> requirements.txt
+#RUN echo "gevent==1.1.2" >> requirements.txt
+#RUN echo "django-anymail==0.5" >> requirements.txt
+
+RUN pip3 install django-environ==0.4.0 gevent==1.1.2 django-anymail==0.5
 
 # FINAL IMAGE
 RUN pip3 install --no-cache-dir --no-index -r requirements.txt
