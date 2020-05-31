@@ -27,7 +27,6 @@ EXPOSE 80
 
 WORKDIR /srv/taiga/back
 
-CMD "echo ################# starting scripts"
 COPY config.py celery.py /tmp/taiga-conf/
 COPY waitfordb.py /
 COPY start.sh /
