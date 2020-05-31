@@ -59,12 +59,12 @@ else
     python3 manage.py compilemessages
     python3 manage.py collectstatic --noinput
 
-#    echo 'Installing cron jobs...'
-#    echo '*/5 * * * * cd /srv/taiga/back && /usr/bin/python3 manage.py send_notifications >> /var/log/cron 2>&1' > /etc/crontabs/root
+    echo 'Installing cron jobs...'
+    echo '*/5 * * * * cd /srv/taiga/back && /usr/bin/python3 manage.py send_notifications >> /var/log/cron 2>&1' > /etc/crontabs/root
 fi
 
-#C_FORCE_ROOT=1 celery -A taiga worker --concurrency 4 -l INFO &
-#CELERY_PID=$!
+C_FORCE_ROOT=1 celery -A taiga worker --concurrency 4 -l INFO &
+CELERY_PID=$!
 
 gunicorn --workers 4 --timeout 60 -b 127.0.0.1:8000 taiga.wsgi > /dev/stdout 2> /dev/stderr &
 TAIGA_PID=$!
@@ -75,6 +75,6 @@ TAIGA_PID=$!
 
 crond >> /var/log/crond 2>&1
 
-trap 'kill -TERM $TAIGA_PID' #; kill -TERM $CELERY_PID' SIGTERM
+trap 'kill -TERM $TAIGA_PID; kill -TERM $CELERY_PID' SIGTERM
 
-wait $TAIGA_PID
+wait $TAIGA_PID $CELERY_PID

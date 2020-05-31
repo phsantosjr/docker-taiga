@@ -82,8 +82,6 @@ services:
       - rabbitmq
     networks:
       - default
-    # Maybe you want to increase the workers, see <celeryworker> in docker-compose.yml
-    # command: ['celery', '-A', 'taiga', 'worker', '-P', 'gevent', '-c', '4', '--loglevel', 'info']
 
   events:
     image: dockertaiga/events
