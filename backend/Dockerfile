@@ -2,22 +2,22 @@ FROM alpine:3.10
 
 ARG VERSION=5.0.7
 
-ENV TAIGA_HOST=taiga.lan \
-    TAIGA_SECRET=secret \
-    TAIGA_SCHEME=http \
-    POSTGRES_HOST=db \
-    POSTGRES_DB=taiga \
-    POSTGRES_USER=postgres \
-    POSTGRES_PASSWORD=password \
-    RABBIT_HOST=rabbit \
-    RABBIT_PORT=5672 \
-    RABBIT_USER=taiga \
-    RABBIT_PASSWORD=password \
-    RABBIT_VHOST=taiga \
-    REDIS_HOST=redis \
-    REDIS_PORT=6379 \
-    REDIS_DB=0 \
-    REDIS_PASSWORD=password
+#ENV TAIGA_HOST=taiga.lan \
+#    TAIGA_SECRET=secret \
+#    TAIGA_SCHEME=http \
+#    POSTGRES_HOST=db \
+#    POSTGRES_DB=taiga \
+#    POSTGRES_USER=postgres \
+#    POSTGRES_PASSWORD=password \
+#    RABBIT_HOST=rabbit \
+#    RABBIT_PORT=5672 \
+#    RABBIT_USER=taiga \
+#    RABBIT_PASSWORD=password \
+#    RABBIT_VHOST=taiga \
+#    REDIS_HOST=redis \
+#    REDIS_PORT=6379 \
+#    REDIS_DB=0 \
+#    REDIS_PASSWORD=password
 
 WORKDIR /srv/taiga
 
