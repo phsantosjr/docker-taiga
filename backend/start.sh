@@ -69,12 +69,12 @@ CELERY_PID=$!
 gunicorn --workers 4 --timeout 60 -b 127.0.0.1:8000 taiga.wsgi > /dev/stdout 2> /dev/stderr &
 TAIGA_PID=$!
 
-mkdir /run/nginx
-nginx -g 'daemon off;' &
-NGINX_PID=$!
+#mkdir /run/nginx
+#nginx -g 'daemon off;' &
+#NGINX_PID=$!
 
 crond >> /var/log/crond 2>&1
 
-trap 'kill -TERM $NGINX_PID; kill -TERM $TAIGA_PID; kill -TERM $CELERY_PID' SIGTERM
+trap 'kill -TERM $TAIGA_PID; kill -TERM $CELERY_PID' SIGTERM
 
-wait $NGINX_PID $TAIGA_PID $CELERY_PID
+wait $TAIGA_PID $CELERY_PID
