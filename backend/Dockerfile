@@ -31,8 +31,8 @@ RUN pip3 install -r requirements.txt
 
 RUN export C_FORCE_ROOT='true'
 
-COPY local.py settings/local.py
-COPY celery_local.py settings/celery_local.py
-COPY scripts/ /scripts/
+COPY ./local.py settings/local.py
+COPY ./celery_local.py settings/celery_local.py
+COPY ./scripts/ /scripts/
 
 RUN chmod +x /scripts/entrypoint.sh
