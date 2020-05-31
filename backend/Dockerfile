@@ -26,6 +26,7 @@ WORKDIR /backend
 RUN pip3 install django-environ==0.4.0 gevent==1.1.2 django-anymail==0.5
 
 # FINAL IMAGE
+RUN ls
 RUN pip3 install -r requirements.txt
 RUN python manage.py compilemessages
 
