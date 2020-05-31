@@ -21,12 +21,8 @@ RUN echo "django-environ==0.4.0" >> requirements.txt
 RUN echo "gevent==1.1.2" >> requirements.txt
 RUN echo "django-anymail==0.5" >> requirements.txt
 
-RUN pip3 wheel -r requirements.txt
-
-
 # FINAL IMAGE
-RUN pip3 install --no-cache-dir --no-index --find-links=taiga_python_dependencies -r requirements.txt \
-    && rm -R ./taiga_python_dependencies \
+RUN pip3 install --no-cache-dir --no-index -r requirements.txt \
     && python manage.py compilemessages
 
 COPY local.py settings/local.py
