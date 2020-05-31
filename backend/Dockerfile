@@ -5,7 +5,7 @@ ARG TAIGA_VERSION=5.0.7
 RUN apt-get update
 RUN apt-get install gcc python-dev git gettext -y
 
-#WORKDIR /backend
+WORKDIR /backend
 
 #RUN echo " ## Downloading Taiga for Github"
 #ADD https://github.com/taigaio/taiga-back/archive/$TAIGA_VERSION.tar.gz .
