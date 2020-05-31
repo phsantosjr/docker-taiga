@@ -14,7 +14,7 @@ RUN echo " ## Downloading Taiga for Github"
 #RUN rm $TAIGA_VERSION.tar.gz
 
 # Don't want pip to use git, so I'm replacing with pypi.
-RUN sed -i 's,git+https://github.com/Xof/django-pglocks.git,django-pglocks==1.0.2,g' requirements.txt
+#RUN sed -i 's,git+https://github.com/Xof/django-pglocks.git,django-pglocks==1.0.2,g' requirements.txt
 
 # local.py and checkdb.py and celery
 # using gevent to run taiga gunicorn (workers)
