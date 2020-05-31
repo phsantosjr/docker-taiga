@@ -3,7 +3,7 @@ FROM python:3.6
 ENV TAIGA_VERSION 5.0.7
 
 RUN apt-get update
-RUN apt-get install gcc python-dev git gettext libpq -y
+RUN apt-get install gcc python-dev git gettext -y
 
 WORKDIR /taiga_backend
 
