@@ -2,12 +2,8 @@ FROM python:3.6
 
 ENV TAIGA_VERSION 5.0.7
 
-RUN apt-get update && apt-get install \
-    # Essentials
-    gcc python-dev \
-    # Postgres python client (psycopg2) build dependency
-    # Other tools
-    git
+RUN apt-get update
+RUN apt-get install gcc python-dev git
 
 WORKDIR /taiga_backend
 
