@@ -44,7 +44,7 @@ services:
       - ./data/media:/taiga-media
     environment:
       - DJANGO_DEBUG=False
-#    command: ['gunicorn', '--worker-class', 'gevent', '--workers', '4', '-b', '0.0.0.0:8000', 'taiga.wsgi']
+    command: ['gunicorn', '--worker-class', 'gevent', '--workers', '4', '-b', '0.0.0.0:8000', 'taiga.wsgi']
     networks:
       - default
 
@@ -70,18 +70,18 @@ services:
     networks:
       - default
 
-#  celeryworker:
-#    build: backend/
-#    restart: always
-#    entrypoint: []
-#    env_file: production.env
-#    container_name: taiga-celery-worker
-#    command: ['celery', '-A', 'taiga', 'worker', '-P', 'gevent', '-c', '4', '--loglevel', 'info']
-#    depends_on:
-#      - redis
-#      - rabbitmq
-#    networks:
-#      - default
+  celeryworker:
+    build: backend/
+    restart: always
+    entrypoint: []
+    env_file: production.env
+    container_name: taiga-celery-worker
+    command: ['celery', '-A', 'taiga', 'worker', '-P', 'gevent', '-c', '4', '--loglevel', 'info']
+    depends_on:
+      - redis
+      - rabbitmq
+    networks:
+      - default
 
   events:
     image: dockertaiga/events
