@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM python:3.6-alpine3.6 as BUILDER
 
 ARG VERSION=5.0.7
 
