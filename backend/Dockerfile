@@ -18,8 +18,6 @@ RUN apk update \
     # Other tools
     git
 
-RUN sed -i 's,git+https://github.com/Xof/django-pglocks.git,django-pglocks==1.0.2,g' requirements.txt
-
 RUN mkdir logs \
     && git clone --depth=1 -b $VERSION https://github.com/taigaio/taiga-back.git back && cd back \
     && pip3 install --upgrade pip \
@@ -29,6 +27,8 @@ RUN mkdir logs \
     && rm /srv/taiga/back/settings/local.py.example \
     && rm /srv/taiga/back/settings/celery.py \
     && rm /etc/nginx/conf.d/default.conf
+
+RUN sed -i 's,git+https://github.com/Xof/django-pglocks.git,django-pglocks==1.0.2,g' requirements.txt
 
 RUN echo "gevent==1.1.2" >> requirements.txt
 RUN pip3 wheel --wheel-dir=./taiga_python_dependencies -r requirements.txt
