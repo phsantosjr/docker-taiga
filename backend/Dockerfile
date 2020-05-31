@@ -4,11 +4,23 @@ ARG VERSION=5.0.7
 
 WORKDIR /srv/taiga
 
-RUN apk --no-cache add python3 gettext postgresql-dev libxslt-dev libxml2-dev \
-          libjpeg-turbo-dev libevent-dev zeromq-dev libffi-dev nginx \
-    && apk add --no-cache --virtual .build-dependencies git g++ musl-dev \
-          linux-headers python3-dev gcc zlib-dev libjpeg-turbo-dev freetype-dev \
-    && mkdir logs \
+ENV TAIGA_VERSION 3.3.7
+
+RUN apk update \
+    && apk add --virtual build-dependencies \
+    # Essentials
+    gcc musl-dev libressl-dev \
+    # Postgres python client (psycopg2) build dependency
+    postgresql-dev \
+    # Pillow / PIL build dependencies
+    freetype-dev jpeg-dev libwebp-dev tiff-dev libpng-dev lcms2-dev \
+    openjpeg-dev zlib-dev libxslt-dev libxml2-dev libffi-dev \
+    # Other tools
+    git
+
+RUN sed -i 's,git+https://github.com/Xof/django-pglocks.git,django-pglocks==1.0.2,g' requirements.txt
+
+RUN mkdir logs \
     && git clone --depth=1 -b $VERSION https://github.com/taigaio/taiga-back.git back && cd back \
     && pip3 install --upgrade pip \
     && pip3 install --no-cache-dir -r requirements.txt \
