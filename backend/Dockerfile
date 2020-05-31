@@ -8,7 +8,7 @@ RUN apk --no-cache add python3 gettext postgresql-dev libxslt-dev libxml2-dev li
     && apk add --no-cache --virtual .build-dependencies git g++ musl-dev linux-headers python3-dev zlib-dev libjpeg-turbo-dev freetype-dev \
     && mkdir logs \
     && git clone --depth=1 -b $VERSION https://github.com/taigaio/taiga-back.git back && cd back \
-    && pip3 install --upgrade pip3 \
+    && pip3 install --upgrade pip \
     && pip3 install --no-cache-dir -r requirements.txt \
     && pip3 install gevent \
     && rm -rf /root/.cache \
