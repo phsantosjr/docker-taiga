@@ -4,8 +4,10 @@ ARG VERSION=5.0.7
 
 WORKDIR /srv/taiga
 
-RUN apk --no-cache add python3 gettext postgresql-dev libxslt-dev libxml2-dev libjpeg-turbo-dev libevent-dev zeromq-dev libffi-dev nginx \
-    && apk add --no-cache --virtual .build-dependencies git g++ musl-dev linux-headers python3-dev gcc zlib-dev libjpeg-turbo-dev freetype-dev \
+RUN apk --no-cache add python3 gettext postgresql-dev libxslt-dev libxml2-dev \
+          libjpeg-turbo-dev libevent-dev zeromq-dev libffi-dev nginx \
+    && apk add --no-cache --virtual build-dependencies git g++ musl-dev \
+          linux-headers python3-dev gcc zlib-dev libjpeg-turbo-dev freetype-dev \
     && mkdir logs \
     && git clone --depth=1 -b $VERSION https://github.com/taigaio/taiga-back.git back && cd back \
     && pip3 install --upgrade pip \
@@ -15,6 +17,9 @@ RUN apk --no-cache add python3 gettext postgresql-dev libxslt-dev libxml2-dev li
     && rm /srv/taiga/back/settings/local.py.example \
     && rm /srv/taiga/back/settings/celery.py \
     && rm /etc/nginx/conf.d/default.conf
+
+RUN echo "gevent==1.1.2" >> requirements.txt
+RUN pip3 wheel --wheel-dir=./taiga_python_dependencies -r requirements.txt
 
 EXPOSE 80
 
