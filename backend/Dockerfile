@@ -4,8 +4,7 @@ ARG TAIGA_VERSION=5.0.7
 
 RUN apt-get update
 RUN apt-get install gcc python-dev git gettext -y
-
-RUN ls
+RUN pip3 install --upgrade pip
 
 #RUN echo " ## Downloading Taiga for Github"
 #ADD https://github.com/taigaio/taiga-back/archive/$TAIGA_VERSION.tar.gz .
@@ -24,6 +23,8 @@ RUN ls
 #RUN echo "django-anymail==0.5" >> requirements.txt
 
 RUN pip3 install django-environ==0.4.0 gevent==1.1.2 django-anymail==0.5
+
+ADD . /
 
 # FINAL IMAGE
 RUN pip3 install -r requirements.txt
