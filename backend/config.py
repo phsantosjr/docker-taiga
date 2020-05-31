@@ -24,15 +24,15 @@ DATABASES = {
     }
 }
 
-#DEFAULT_FROM_EMAIL = "john@doe.com"
-#CHANGE_NOTIFICATIONS_MIN_INTERVAL = 300 #seconds
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#EMAIL_USE_TLS = False
-#EMAIL_USE_SSL = False # You cannot use both (TLS and SSL) at the same time!
-#EMAIL_HOST = 'localhost'
-#EMAIL_PORT = 25
-#EMAIL_HOST_USER = 'user'
-#EMAIL_HOST_PASSWORD = 'password'
+DEFAULT_FROM_EMAIL = "$EMAIL_DEFAULT_FROM"
+CHANGE_NOTIFICATIONS_MIN_INTERVAL = 300 #seconds
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False # You cannot use both (TLS and SSL) at the same time!
+EMAIL_HOST = '$EMAIL_HOST'
+EMAIL_PORT = "$EMAIL_PORT"
+EMAIL_HOST_USER = '$EMAIL_USER'
+EMAIL_HOST_PASSWORD = '$EMAIL_PASS'
 
 EVENTS_PUSH_BACKEND = "taiga.events.backends.rabbitmq.EventsPushBackend"
 EVENTS_PUSH_BACKEND_OPTIONS = {"url": "amqp://$RABBITMQ_DEFAULT_USER:$RABBIT_DEFAULT_PASS@$RABBIT_HOST:$RABBIT_PORT/$RABBIT_DEFAULT_VHOST"}

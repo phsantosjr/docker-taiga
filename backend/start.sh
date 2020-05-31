@@ -15,18 +15,18 @@ if [ ! -f $INITIAL_SETUP_LOCK ]; then
         -e 's/$POSTGRES_PASSWORD/'$POSTGRES_PASSWORD'/' \
         -e 's/$RABBIT_HOST/'$RABBIT_HOST'/' \
         -e 's/$RABBIT_PORT/'$RABBIT_PORT'/' \
-        -e 's/$RABBIT_USER/'$RABBIT_USER'/' \
-        -e 's/$RABBIT_PASSWORD/'$RABBIT_PASSWORD'/' \
-        -e 's/$RABBIT_VHOST/'$RABBIT_VHOST'/' \
+        -e 's/$RABBIT_USER/'$RABBITMQ_DEFAULT_USER'/' \
+        -e 's/$RABBIT_PASSWORD/'$RABBIT_DEFAULT_PASS'/' \
+        -e 's/$RABBIT_VHOST/'$RABBIT_DEFAULT_VHOST'/' \
         -i /tmp/taiga-conf/config.py
     cp /tmp/taiga-conf/config.py /taiga-conf/
     ln -sf /taiga-conf/config.py /srv/taiga/back/settings/local.py
 
     sed -e 's/$RABBIT_HOST/'$RABBIT_HOST'/' \
         -e 's/$RABBIT_PORT/'$RABBIT_PORT'/' \
-        -e 's/$RABBIT_USER/'$RABBIT_USER'/' \
-        -e 's/$RABBIT_PASSWORD/'$RABBIT_PASSWORD'/' \
-        -e 's/$RABBIT_VHOST/'$RABBIT_VHOST'/' \
+        -e 's/$RABBIT_USER/'$RABBITMQ_DEFAULT_USER'/' \
+        -e 's/$RABBIT_PASSWORD/'$RABBIT_DEFAULT_PASS'/' \
+        -e 's/$RABBIT_VHOST/'$RABBIT_DEFAULT_VHOST'/' \
         -e 's/$REDIS_HOST/'$REDIS_HOST'/' \
         -e 's/$REDIS_PORT/'$REDIS_PORT'/' \
         -e 's/$REDIS_DB/'$REDIS_DB'/' \

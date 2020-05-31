@@ -20,14 +20,17 @@ services:
 
   redis:
     image: redis:4.0-alpine
+    container_name: taiga-redis
     restart: always
     networks:
       - default
 
   rabbitmq:
     restart: always
-    env_file: production.env
+    env_file:
+      - production.env
     image: rabbitmq:3.6-alpine
+    container_name: taiga-rabbit
     hostname: taiga_rabbitmq
     networks:
       - default
